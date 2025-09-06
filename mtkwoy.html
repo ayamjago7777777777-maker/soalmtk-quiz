@@ -1,0 +1,159 @@
+
+
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>soal mtk woy</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #4facfe, #00f2fe);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .container {
+      text-align: center;
+      background: rgba(0,0,0,0.5);
+      padding: 30px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      animation: fadeIn 1s ease-in-out;
+    }
+    h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 30px;
+      background: linear-gradient(to right, #ff4b2b, #ff416c);
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    button:hover {
+      transform: scale(1.1);
+    }
+    .hidden {
+      display: none;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: scale(0.9);}
+      to {opacity: 1; transform: scale(1);}
+    }
+    input {
+      padding: 10px;
+      width: 80%;
+      margin: 10px 0;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+    }
+    #feedback {
+      font-size: 18px;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    .benar { color: #00ff99; }
+    .salah { color: #ff4b2b; }
+  </style>
+</head>
+<body>
+
+  <!-- Halaman Awal -->
+  <div class="container" id="startPage">
+    <h1>welcome back😭😭🖐</h1></h1>
+    <p>jawab nya harus jujur awas aja kalo ga jujur😭😭</p>
+    <button onclick="startQuiz()">gasss ➡️</button>
+  </div>
+
+  <!-- Halaman Kuis -->
+  <div class="container hidden" id="quizPage">
+    <h1 id="questionTitle">Soal 1</h1>
+    <p id="questionText"></p>
+    <input type="text" id="answerInput" placeholder="Tulis jawabanmu...">
+    <br>
+    <button onclick="checkAnswer()">Cek Jawaban ✅</button>
+    <p id="feedback"></p>
+    <button class="hidden" id="nextBtn" onclick="nextQuestion()">Soal Berikutnya ➡️</button>
+  </div>
+
+  <!-- Halaman Akhir -->
+  <div class="container hidden" id="endPage">
+    <h1>allhamdulillah makasih udah jawab kaka😭</h1>
+    <p id="scoreResult"></p>
+  </div>
+
+  <script>
+    // Soal dan kunci jawaban
+    const questions = [
+      { q: "Berapakah hasil dari 5 + 7?", a: "12" },
+      { q: "Hitung: 12 - 4 = ?", a: "8" },
+      { q: "Berapakah 6 × 8?", a: "48" },
+      { q: "Hitung: 56 ÷ 7 = ?", a: "8" },
+      { q: "Berapakah 9²?", a: "81" },
+      { q: "Hitung luas persegi dengan sisi 10 cm?", a: "100" },
+      { q: "Jika x = 5, berapakah nilai 2x + 3?", a: "13" },
+      { q: "Berapakah hasil 100 ÷ 4?", a: "25" },
+      { q: "Hitung keliling lingkaran (π=3.14, r=7)", a: "43.96" },
+      { q: "Berapakah akar kuadrat dari 144?", a: "12" }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    function startQuiz() {
+      document.getElementById("startPage").classList.add("hidden");
+      document.getElementById("quizPage").classList.remove("hidden");
+      showQuestion();
+    }
+
+    function showQuestion() {
+      document.getElementById("questionTitle").innerText = "Soal " + (currentQuestion + 1);
+      document.getElementById("questionText").innerText = questions[currentQuestion].q;
+      document.getElementById("answerInput").value = "";
+      document.getElementById("feedback").innerText = "";
+      document.getElementById("nextBtn").classList.add("hidden");
+    }
+
+    function checkAnswer() {
+      let userAnswer = document.getElementById("answerInput").value.trim();
+      let correctAnswer = questions[currentQuestion].a;
+
+      if (userAnswer === correctAnswer) {
+        document.getElementById("feedback").innerHTML = "✅ nah ini baru benerr";
+        document.getElementById("feedback").className = "ini beru benerr😭";
+        score++;
+      } else {
+        document.getElementById("feedback").innerHTML = "yahaaa salah nah ini baru benerr😭: " + correctAnswer;
+        document.getElementById("feedback").className = "yahhahaa salah";
+      }
+      document.getElementById("nextBtn").classList.remove("hidden");
+    }
+
+    function nextQuestion() {
+      currentQuestion++;
+      if (currentQuestion < questions.length) {
+        showQuestion();
+      } else {
+        document.getElementById("quizPage").classList.add("hidden");
+        document.getElementById("endPage").classList.remove("hidden");
+        document.getElementById("scoreResult").innerText = 
+          "Skor kamu: " + score + " dari " + questions.length;
+      }
+    }
+  </script>
+
+</body>
+</html>
